@@ -11,7 +11,29 @@ const express = require('express');
 
 
 const app = express();
-app.use(cors());
+
+
+// Define the list of allowed headers
+const allowedHeaders = [
+  "Origin",
+  "Authorization",
+  "X-Requested-With",
+  "Content-Type",
+  "Accept",
+  "requestPath",
+];
+
+// Allow specific origins and headers
+const corsOptions = {
+  origin: ["https://hr-dashboard-frontend-ycxl.onrender.com", "http://localhost:3000"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+  allowedHeaders: allowedHeaders.join(","), // Include the Authorization header
+};
+app.options("*", cors(corsOptions));
+
+app.use(cors(corsOptions));
   
   app.use(express.json());
   app.use('/',emplyeerouter);
