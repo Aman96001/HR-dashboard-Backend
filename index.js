@@ -1,20 +1,17 @@
 const express = require('express');
-const connectDB = require('./config/db');
+
  require('dotenv').config();
  const userrouter = require('./routes/auth');
  const candidaterouter = require('./routes/candidate');
  const emplyeerouter = require('./routes/employee');
  const grantLeaverouter = require('./routes/grantleave');
+ require("./config/db").connect();
  const cors = require('cors');
  
- 
-connectDB();
+
 
 const app = express();
-app.use(cors({
-    origin: 'http://localhost:3000',  //frontend
-    credentials: true             
-  }));
+app.use(cors());
   
   app.use(express.json());
   app.use('/',emplyeerouter);
